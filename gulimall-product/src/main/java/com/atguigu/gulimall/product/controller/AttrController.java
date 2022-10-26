@@ -2,8 +2,9 @@ package com.atguigu.gulimall.product.controller;
 
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
-import com.atguigu.gulimall.product.entity.AttrEntity;
 import com.atguigu.gulimall.product.service.AttrService;
+import com.atguigu.gulimall.product.vo.AttrRespVo;
+import com.atguigu.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,17 @@ public class AttrController {
 
         return R.ok().put("page", page);
     }
+    /**
+     * 列表
+     */
+    @GetMapping("/{attrType}/list/{catelogId}")
+    //@RequiresPermissions("product:attr:list")
+    public R baseList(@RequestParam Map<String, Object> params,
+                      @PathVariable Long catelogId,
+                      @PathVariable String attrType){
+        PageUtils page = attrService.baseList(params, catelogId, attrType);
+        return R.ok().put("page", page);
+    }
 
 
     /**
@@ -43,9 +55,8 @@ public class AttrController {
     @RequestMapping("/info/{attrId}")
     //@RequiresPermissions("product:attr:info")
     public R info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
-
-        return R.ok().put("attr", attr);
+		AttrRespVo respVo = attrService.getAttrInfo(attrId);
+        return R.ok().put("attr", respVo);
     }
 
     /**
@@ -53,8 +64,8 @@ public class AttrController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:attr:save")
-    public R save(@RequestBody AttrEntity attr){
-		attrService.save(attr);
+    public R save(@RequestBody AttrVo attrVo){
+		attrService.saveAttr(attrVo);
 
         return R.ok();
     }
@@ -64,9 +75,8 @@ public class AttrController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:attr:update")
-    public R update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
-
+    public R update(@RequestBody AttrRespVo attrRespVo){
+		attrService.updateAttrResp(attrRespVo);
         return R.ok();
     }
 
@@ -76,8 +86,8 @@ public class AttrController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:attr:delete")
     public R delete(@RequestBody Long[] attrIds){
-		attrService.removeByIds(Arrays.asList(attrIds));
-
+		//attrService.removeByIds(Arrays.asList(attrIds));
+        attrService.removeAndRelationByIds(Arrays.asList(attrIds));
         return R.ok();
     }
 

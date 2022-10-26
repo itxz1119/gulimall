@@ -13,5 +13,38 @@ spring:
         - id: test-route
           uri: https://www.baidu.com
           predicates:
-           - Query=url,baidu
+            - Query=url,baidu
+        #精准匹配放在前面
+        - id: product-route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+
+        - id: third-party-route
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>/?.*), /$\{segment}
+
+        - id: gulimall-member
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+
+
+        - id: renren-fast
+          uri: lb://renren-fast
+          ##前端项目 发送的请求都带上api前缀
+          predicates:
+            - Path=/api/**
+          #路径重写
+          filters:
+            - RewritePath=/api(?<segment>/?.*), /renren-fast/$\{segment}
+
+
 
