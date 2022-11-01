@@ -38,7 +38,7 @@ public class OssController {
         //String callbackUrl = "https://192.168.0.0:8888";
         // 设置上传到OSS文件的前缀，可置空此项。置空后，文件将上传至Bucket的根目录下。
         String format = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String dir = format + "/";
+        String dir = format;
 // https://gulimall-zxy-01.oss-cn-hangzhou.aliyuncs.com/%E7%8C%AB2.jpg
         try {
             long expireTime = 30;

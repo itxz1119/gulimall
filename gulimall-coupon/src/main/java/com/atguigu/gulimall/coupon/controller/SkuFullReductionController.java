@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.coupon.controller;
 
+import com.atguigu.common.to.SkuReductionTo;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 import com.atguigu.gulimall.coupon.entity.SkuFullReductionEntity;
@@ -76,7 +77,18 @@ public class SkuFullReductionController {
     //@RequiresPermissions("coupon:skufullreduction:delete")
     public R delete(@RequestBody Long[] ids) {
         skuFullReductionService.removeByIds(Arrays.asList(ids));
+        return R.ok();
+    }
 
+    /**
+     * 6.4 保存sku的优惠、满减等信息
+     * 跨库操作 gulimall_sms --》sms_sku_ladder（满几件表）sms_sku_full_reduction（满几元） sms_member_price（会员表）
+     * @param skuReductionTo
+     * @return
+     */
+    @PostMapping("/saveInfo")
+    public R saveInfo(@RequestBody SkuReductionTo skuReductionTo){
+        skuFullReductionService.saveSkuReductionTo(skuReductionTo);
         return R.ok();
     }
 

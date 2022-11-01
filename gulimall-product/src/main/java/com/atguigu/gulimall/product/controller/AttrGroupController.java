@@ -9,6 +9,7 @@ import com.atguigu.gulimall.product.service.AttrAttrgroupRelationService;
 import com.atguigu.gulimall.product.service.AttrGroupService;
 import com.atguigu.gulimall.product.service.AttrService;
 import com.atguigu.gulimall.product.service.CategoryService;
+import com.atguigu.gulimall.product.vo.AttrGroupWithAttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -141,6 +142,17 @@ public class AttrGroupController {
     public R delete(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
         return R.ok();
+    }
+
+    /**
+     * 根据分类id --》查出属性分组 --》 查出规格参数
+     * @param catelogId
+     * @return
+     */
+    @GetMapping("/{catelogId}/withattr")
+    public R getGroupWithAttr(@PathVariable Long catelogId){
+        List<AttrGroupWithAttrVo> attrGroupWithAttrVoList = attrGroupService.getAttrGroupWithAttr(catelogId);
+        return R.ok().put("data",attrGroupWithAttrVoList);
     }
 
 }

@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2022-09-27 11:55:09
  */
 @RestController
-@RequestMapping("coupon/spubounds")
+@RequestMapping("/coupon/spubounds")
 public class SpuBoundsController {
     @Autowired
     private SpuBoundsService spuBoundsService;
@@ -50,7 +50,7 @@ public class SpuBoundsController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     //@RequiresPermissions("coupon:spubounds:save")
     public R save(@RequestBody SpuBoundsEntity spuBounds) {
         spuBoundsService.save(spuBounds);

@@ -165,6 +165,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     }
 
+    /**
+     * 根据attrgroupId 获取 关联的规格参数AttrEntity
+     * @param attrgroupId
+     * @return
+     */
     @Override
     public List<AttrEntity> getRelation(Long attrgroupId) {
         List<AttrAttrgroupRelationEntity> groupIds =
