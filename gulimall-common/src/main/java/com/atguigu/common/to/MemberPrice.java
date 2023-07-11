@@ -5,7 +5,7 @@ public class MemberPrice {
     private Long id;
     private String name;
     private BigDecimal price;
-    private String userName;
+    private String passWord;
     public Long getId() {
         return id;
     }
