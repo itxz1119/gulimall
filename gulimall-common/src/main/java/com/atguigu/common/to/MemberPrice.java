@@ -5,8 +5,9 @@ public class MemberPrice {
     private Long id;
     private String name;
     private BigDecimal price;
+// 1111111
+ private String userName;
 
-    private String userName;
     public Long getId() {
         return id;
     }
