@@ -1,16 +1,18 @@
 package com.atguigu.gulimall.ware.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.math.BigDecimal;
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 采购信息
- * 
+ *
  * @author zxy
  * @email zxy@gmail.com
  * @date 2022-09-27 11:37:37
@@ -21,45 +23,47 @@ public class PurchaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
 	@TableId
 	private Long id;
 	/**
-	 * 
+	 *
 	 */
 	private Long assigneeId;
 	/**
-	 * 
+	 *
 	 */
 	private String assigneeName;
 	/**
-	 * 
+	 *
 	 */
 	private String phone;
 	/**
-	 * 
+	 *
 	 */
 	private Integer priority;
 	/**
-	 * 
+	 *
 	 */
 	private Integer status;
 	/**
-	 * 
+	 *
 	 */
 	private Long wareId;
 	/**
-	 * 
+	 *
 	 */
 	private BigDecimal amount;
 	/**
-	 * 
+	 *
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
 	/**
-	 * 
+	 *
 	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateTime;
 
 }

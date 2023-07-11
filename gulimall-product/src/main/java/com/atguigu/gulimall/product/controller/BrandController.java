@@ -101,4 +101,11 @@ public class BrandController {
         return R.ok();
     }
 
+    @RequestMapping("/hello")
+    //@RequiresPermissions("product:brand:delete")
+    public String hello() {
+        return "hello";
+    }
+
+
 }

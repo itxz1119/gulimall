@@ -2,13 +2,16 @@ package com.atguigu.gulimall.product.controller;
 
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
+import com.atguigu.gulimall.product.entity.ProductAttrValueEntity;
 import com.atguigu.gulimall.product.service.AttrService;
+import com.atguigu.gulimall.product.service.ProductAttrValueService;
 import com.atguigu.gulimall.product.vo.AttrRespVo;
 import com.atguigu.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,6 +29,8 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    private ProductAttrValueService attrValueService;
     /**
      * 列表
      */
@@ -90,5 +95,21 @@ public class AttrController {
         attrService.removeAndRelationByIds(Arrays.asList(attrIds));
         return R.ok();
     }
-
+    ///product/attr/base/listforspu/{spuId}
+    /**
+     * 获取spu规格
+     */
+    @GetMapping("/base/listforspu/{spuId}")
+    public R listforspu(@PathVariable Long spuId){
+        List<ProductAttrValueEntity> data = attrValueService.listforspuBySpuId(spuId);
+        return R.ok().put("data", data);
+    }
+    /**
+     * 修改spu规格
+     */
+    @PostMapping("/update/{spuId}")
+    public R updateSpuAttr(@PathVariable Long spuId, @RequestBody List<ProductAttrValueEntity> entities){
+        attrValueService.updateSpuAttr(spuId, entities);
+        return R.ok();
+    }
 }

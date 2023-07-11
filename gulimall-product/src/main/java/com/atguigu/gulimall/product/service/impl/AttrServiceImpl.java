@@ -241,4 +241,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         baseMapper.deleteBatchIds(attrIds);
     }
 
+    @Override
+    public List<Long> getSearchTypeIdbyAttrId(List<Long> attrIds) {
+        return baseMapper.getSearchTypeIdbyAttrId(attrIds);
+    }
+
 }

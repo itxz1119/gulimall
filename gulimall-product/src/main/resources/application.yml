@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.190.128:3306/gulimall_pms
+    url: jdbc:mysql://192.168.190.128:3306/gulimall_pms?useUnicode=true&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
   cloud:
@@ -10,13 +10,25 @@ spring:
         server-addr: 127.0.0.1:8848
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+  redis:
+    host: 192.168.190.128
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000 #指定key的存活时间,毫秒为单位
+      key-prefix: CACHE_
+      use-key-prefix: true  #默认为true
+      cache-null-values: true #默认为true，防止缓存穿透
+
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 server:
   port: 10000
 

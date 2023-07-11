@@ -4,7 +4,7 @@ spring:
     name: gulimall-member
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.190.128:3306/gulimall_ums
+    url: jdbc:mysql://192.168.190.128:3306/gulimall_ums?useUnicode=true&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
   cloud:

@@ -79,4 +79,12 @@ public class SpuInfoController {
         return R.ok();
     }
 
+    /**
+     * 上架商品
+     */
+    @PostMapping("/{spuId}/up")
+    public R upProduct(@PathVariable Long spuId){
+        spuInfoService.upProduct(spuId);
+        return R.ok();
+    }
 }

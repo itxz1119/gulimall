@@ -15,6 +15,9 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <update id="updateStatusBySpuId">
+        UPDATE pms_spu_info Set publish_status = #{status}, update_time = now() WHERE id = #{spuId}
+    </update>
 
 
 </mapper>
