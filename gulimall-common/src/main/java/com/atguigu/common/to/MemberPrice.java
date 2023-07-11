@@ -6,6 +6,7 @@ public class MemberPrice {
     private String name;
     private BigDecimal price;
 
+    private String userName;
     public Long getId() {
         return id;
     }
