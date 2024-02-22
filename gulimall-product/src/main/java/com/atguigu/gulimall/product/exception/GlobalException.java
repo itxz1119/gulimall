@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class GlobalException {
 
     /*
-    * 数据校验异常
-    * */
+     * 数据校验异常
+     * */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public R handleVaildExcetion(MethodArgumentNotValidException e) {
         log.error("数据校验出现问题{},异常类型{}", e.getMessage(), e.getClass());
@@ -25,24 +25,24 @@ public class GlobalException {
         result.getFieldErrors().forEach((item) -> {
             map.put(item.getField(), item.getDefaultMessage());
         });
-        return R.error(BizCodeEnum.VALID_EXCEPTION.getCode(),BizCodeEnum.VALID_EXCEPTION.getMessage()).put("data", map);
+        return R.error(BizCodeEnum.VALID_EXCEPTION.getCode(), BizCodeEnum.VALID_EXCEPTION.getMessage()).put("data", map);
     }
 
     /*
-    * 全局异常处理
-    * */
+     * 全局异常处理
+     * */
     @ExceptionHandler(Exception.class)
-    public R error(Exception e){
+    public R error(Exception e) {
         log.error("系统出现问题{},异常类型{}", e.getMessage(), e.getClass());
         e.printStackTrace();
         return R.error(BizCodeEnum.UNKNOW_EXCEPTION.getCode(), BizCodeEnum.UNKNOW_EXCEPTION.getMessage());
     }
 
     /*
-    * 特定异常处理
-    * */
+     * 特定异常处理
+     * */
     @ExceptionHandler(GulimallException.class)
-    public R error(GulimallException e){
+    public R error(GulimallException e) {
         log.error("系统出现问题{},异常类型{}", e.getMessage(), e.getClass());
         e.printStackTrace();
         return R.error(e.getCode(), e.getMessage());
