@@ -4,15 +4,22 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 import com.atguigu.gulimall.order.entity.OrderEntity;
 import com.atguigu.gulimall.order.service.OrderService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 
 
 /**
- * 订单
+ * 创建订单
+ * 使用MQ延时队列
  *
  * @author zxy
  * @email zxy@gmail.com
@@ -21,8 +28,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("order/order")
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 列表
@@ -76,7 +87,26 @@ public class OrderController {
     //@RequiresPermissions("order:order:delete")
     public R delete(@RequestBody Long[] ids) {
         orderService.removeByIds(Arrays.asList(ids));
+        return R.ok();
+    }
 
+    @RequestMapping("/createOrder")
+    public R createOrder() {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(UUID.randomUUID().toString());
+        rabbitTemplate.convertAndSend("order-event-exchange", "order.create.order", orderEntity);
+        return R.ok();
+    }
+
+    /**
+     * mq业务场景模拟
+     * 使用mq进行库存的管理
+     */
+    @RequestMapping("/createOrder")
+    public R createMQOrder() {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(UUID.randomUUID().toString());
+        rabbitTemplate.convertAndSend("order-event-exchange", "order.create.order", orderEntity);
         return R.ok();
     }
 

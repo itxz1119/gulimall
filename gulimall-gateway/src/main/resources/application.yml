@@ -14,6 +14,13 @@ spring:
           uri: https://www.baidu.com
           predicates:
             - Query=url,baidu
+
+        - id: coupon-route
+          uri: lb://gulimall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
         #精准匹配放在前面
         - id: product-route
           uri: lb://gulimall-product

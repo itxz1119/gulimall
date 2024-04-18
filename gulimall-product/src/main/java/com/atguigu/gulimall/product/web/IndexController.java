@@ -30,6 +30,7 @@ public class IndexController {
     private StringRedisTemplate stringRedisTemplate;
 
 
+
     @GetMapping({"/", "/index.html"})
     public String indexPage(Model model) {
         //查出所有的一级分类
